@@ -61,7 +61,18 @@ define([
          * Fetch cart count from API
          */
         fetchCartCount: function () {
-            self.cartCount(12);
+            var self = this;
+            var serviceUrl = url.build('rest/V1/agl/product/' + this.sku + '/cart-count');
+            
+            $.ajax({
+                url: serviceUrl,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    self.cartCount(response);
+                }
+            });
         },
 
         /**

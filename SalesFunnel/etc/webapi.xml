@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    AGL
+ * @package     AGL_SalesFunnel
+ * @author      Zeeshan Mehtab <zeeshan.mehtab1@gmail.com>
+ * @copyright   Copyright (c) 2025 AGL (https://www.agl.com.au)
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/agl/product/:sku/cart-count" method="GET">
+        <service class="AGL\SalesFunnel\Api\CartCountManagementInterface" method="getCartCount"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes> 
