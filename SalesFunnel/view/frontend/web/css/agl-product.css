@@ -1,0 +1,19 @@
+/**
+ * @category    AGL
+ * @package     AGL_SalesFunnel
+ * @author      Zeeshan Mehtab <zeeshan.mehtab1@gmail.com>
+ * @copyright   Copyright (c) 2025 AGL (https://www.agl.com.au)
+ */
+
+.agl-product-cart-count {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    border-left: 3px solid #1979c3;
+}
+
+.agl-product-cart-count span {
+    font-weight: 600;
+    color: #1979c3;
+} 

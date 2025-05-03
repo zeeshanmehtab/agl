@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    AGL
+ * @package     AGL_SalesFunnel
+ * @author      Zeeshan Mehtab <zeeshan.mehtab1@gmail.com>
+ * @copyright   Copyright (c) 2025 AGL (https://www.agl.com.au)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="AGL\SalesFunnel\Block\Product\View\CartCount" name="agl.product.cart.count" template="AGL_SalesFunnel::product/view/cart_count.phtml" before="product.info"/>
+        </referenceContainer>
+    </body>
+</page> 

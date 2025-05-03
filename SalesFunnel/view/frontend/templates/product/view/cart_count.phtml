@@ -1,0 +1,28 @@
+<?php
+/**
+ * @category    AGL
+ * @package     AGL_SalesFunnel
+ * @author      Zeeshan Mehtab <zeeshan.mehtab1@gmail.com>
+ * @copyright   Copyright (c) 2025 AGL (https://www.agl.com.au)
+ * @var \AGL\SalesFunnel\Block\Product\View\CartCount $block
+ */
+?>
+<div id="agl-cart-count-container" data-bind="scope: 'aglCartCount'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+{
+    "#agl-cart-count-container": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "aglCartCount": {
+                    "component": "AGL_SalesFunnel/js/agl-cart-count-component",
+                    "template": "AGL_SalesFunnel/cart-count-viewer-4",
+                    "config": <?= /* @noEscape */ $block->getComponentConfig() ?>
+                }
+            }
+        }
+    }
+}
+</script> 

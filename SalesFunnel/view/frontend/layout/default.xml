@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    AGL
+ * @package     AGL_SalesFunnel
+ * @author      Zeeshan Mehtab <zeeshan.mehtab1@gmail.com>
+ * @copyright   Copyright (c) 2025 AGL (https://www.agl.com.au)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="AGL_SalesFunnel::css/agl-product.css" />
+    </head>
+</page> 
