@@ -9,11 +9,21 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Plugin for Product Repository -->
+    <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="agl_salesfunnel_product_repository" type="AGL\SalesFunnel\Plugin\Catalog\Model\ProductRepository" />
+    </type>
     
     <!-- Plugin for Shipping Method -->
+    <type name="Magento\OfflineShipping\Model\Carrier\Flatrate">
+        <plugin name="agl_salesfunnel_flatrate_shipping" type="AGL\SalesFunnel\Plugin\Shipping\Flatrate" />
+    </type>
     
     <!-- Extension Attributes for Product -->
-    
+    <type name="Magento\Catalog\Api\Data\ProductExtensionInterface">
+        <plugin name="agl_salesfunnel_product_extension_attributes" type="AGL\SalesFunnel\Plugin\Catalog\Model\ProductExtensionAttributes" />
+    </type>
     <!-- Preferences for API interfaces -->
-    <preference for="AGL\SalesFunnel\Api\CartCountManagementInterface" type="AGL\SalesFunnel\Model\CartCountManagement" />
+    <preference for="AGL\SalesFunnel\Api\AglProductRepositoryInterface" type="AGL\SalesFunnel\Model\AglProductRepository" />
+    <preference for="AGL\SalesFunnel\Api\Data\AglProductInterface" type="AGL\SalesFunnel\Model\AglProduct" />
+    <preference for="AGL\SalesFunnel\Api\Data\AglProductSearchResultsInterface" type="AGL\SalesFunnel\Model\AglProductSearchResults" />
 </config> 

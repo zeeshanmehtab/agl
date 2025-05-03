@@ -11,6 +11,7 @@ namespace AGL\SalesFunnel\Block\Product\View;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\Registry;
+use AGL\SalesFunnel\Model\ResourceModel\CartCount as CartCountResource;
 use Magento\Framework\Serialize\Serializer\Json;
 
 /**
@@ -24,6 +25,10 @@ class CartCount extends Template
      */
     private $registry;
 
+    /**
+     * @var CartCountResource
+     */
+    private $cartCountResource;
 
     /**
      * @var Json
@@ -33,16 +38,19 @@ class CartCount extends Template
     /**
      * @param Context $context
      * @param Registry $registry
+     * @param CartCountResource $cartCountResource
      * @param Json $json
      * @param array $data
      */
     public function __construct(
         Context $context,
         Registry $registry,
+        CartCountResource $cartCountResource,
         Json $json,
         array $data = []
     ) {
         $this->registry = $registry;
+        $this->cartCountResource = $cartCountResource;
         $this->json = $json;
         parent::__construct($context, $data);
     }
@@ -54,7 +62,10 @@ class CartCount extends Template
      */
     public function isAglProduct()
     {
-        //TODO: Replace with dynamic data
+        $product = $this->getProduct();
+        if ($product && $product->getCustomAttribute('agl_product')) {
+            return (bool)$product->getCustomAttribute('agl_product')->getValue();
+        }
         return true;
     }
 
@@ -75,8 +86,11 @@ class CartCount extends Template
      */
     public function getCartCount()
     {
-        //TODO: Replace with dynamic data
-        return 10;
+        $product = $this->getProduct();
+        if ($product) {
+            return $this->cartCountResource->getCartCount($product->getSku());
+        }
+        return 0;
     }
 
     /**

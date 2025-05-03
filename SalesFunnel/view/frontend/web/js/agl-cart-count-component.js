@@ -61,8 +61,9 @@ define([
          * Fetch cart count from API
          */
         fetchCartCount: function () {
+
             var self = this;
-            var serviceUrl = url.build('rest/V1/agl/product/' + this.sku + '/cart-count');
+            var serviceUrl = url.build('rest/V1/agl/product/' + this.sku);
             
             $.ajax({
                 url: serviceUrl,
@@ -70,7 +71,7 @@ define([
                 dataType: 'json',
                 cache: false,
                 success: function (response) {
-                    self.cartCount(response);
+                    self.cartCount(response.cart_count);
                 }
             });
         },

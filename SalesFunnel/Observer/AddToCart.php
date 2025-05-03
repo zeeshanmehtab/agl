@@ -10,7 +10,7 @@ namespace AGL\SalesFunnel\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
-use AGL\SalesFunnel\Model\ResourceModel\CartCount;
+use AGL\SalesFunnel\Api\AglProductRepositoryInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
@@ -21,9 +21,9 @@ use Psr\Log\LoggerInterface;
 class AddToCart implements ObserverInterface
 {
     /**
-     * @var CartCount
+     * @var AglProductRepositoryInterface
      */
-    private $cartCountResource;
+    private $aglProductRepository;
 
     /**
      * @var ProductRepositoryInterface
@@ -36,16 +36,16 @@ class AddToCart implements ObserverInterface
     private $logger;
 
     /**
-     * @param CartCount $cartCountResource
+     * @param AglProductRepositoryInterface $aglProductRepository
      * @param ProductRepositoryInterface $productRepository
      * @param LoggerInterface $logger
      */
     public function __construct(
-        CartCount $cartCountResource,
+        AglProductRepositoryInterface $aglProductRepository,
         ProductRepositoryInterface $productRepository,
         LoggerInterface $logger
     ) {
-        $this->cartCountResource = $cartCountResource;
+        $this->aglProductRepository = $aglProductRepository;
         $this->productRepository = $productRepository;
         $this->logger = $logger;
     }
@@ -72,7 +72,7 @@ class AddToCart implements ObserverInterface
                 $sku = $product->getSku();
                 
                 // Increment cart count
-                $this->cartCountResource->incrementCartCount($sku);
+                $this->aglProductRepository->incrementCartCount($sku);
             }
         } catch (\Exception $e) {
             $this->logger->error('Error in AGL_SalesFunnel AddToCart observer: ' . $e->getMessage());

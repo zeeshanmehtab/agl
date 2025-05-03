@@ -9,8 +9,14 @@
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/agl/product/:sku/cart-count" method="GET">
-        <service class="AGL\SalesFunnel\Api\CartCountManagementInterface" method="getCartCount"/>
+    <route url="/V1/products/search/AGL" method="GET">
+        <service class="AGL\SalesFunnel\Api\AglProductRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/agl/product/:sku" method="GET">
+        <service class="AGL\SalesFunnel\Api\AglProductRepositoryInterface" method="getBySku"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
