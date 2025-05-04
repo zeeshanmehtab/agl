@@ -52,6 +52,10 @@ Follow the steps below to install the AGL_SalesFunnel Magento extension:
 3. Navigate to `Stores > Configuration > Sales > Delivery Methods` and set Flat rate to $20
 4. Naviate to a product page that is already set as AGL Product = yes and start testing.
 
+### Step 8: API Endpoints
+1. New API Endpoint for all AGL Products /rest/V1/products/search/AGL
+2. New API Endpoint for Cart Count per SKU /rest/V1/agl/product/:sku
+3. Update for Product Search API: New Extension attributes added to /rest/V1/products API Endpoint
 
 ## Uninstallation Guide
 
