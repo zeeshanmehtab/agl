@@ -16,6 +16,7 @@ use AGL\SalesFunnel\Model\ResourceModel\CartCount\CollectionFactory as CartCount
 use AGL\SalesFunnel\Model\ResourceModel\CartCount as CartCountResource;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Psr\Log\LoggerInterface;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 
 /**
  * Class AglProductRepository
@@ -44,6 +45,11 @@ class AglProductRepository implements AglProductRepositoryInterface
     private $cartCountResource;
 
     /**
+     * @var ProductCollectionFactory
+     */
+    private $productCollectionFactory;
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -53,6 +59,7 @@ class AglProductRepository implements AglProductRepositoryInterface
      * @param ProductRepositoryInterface $productRepository
      * @param CartCountCollectionFactory $cartCountCollectionFactory
      * @param CartCountResource $cartCountResource
+     * @param ProductCollectionFactory $productCollectionFactory
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -60,12 +67,14 @@ class AglProductRepository implements AglProductRepositoryInterface
         ProductRepositoryInterface $productRepository,
         CartCountCollectionFactory $cartCountCollectionFactory,
         CartCountResource $cartCountResource,
+        ProductCollectionFactory $productCollectionFactory,
         LoggerInterface $logger
     ) {
         $this->aglProductFactory = $aglProductFactory;
         $this->productRepository = $productRepository;
         $this->cartCountCollectionFactory = $cartCountCollectionFactory;
         $this->cartCountResource = $cartCountResource;
+        $this->productCollectionFactory = $productCollectionFactory;
         $this->logger = $logger;
     }
 
@@ -74,20 +83,15 @@ class AglProductRepository implements AglProductRepositoryInterface
      */
     public function getList()
     {
-        $cartCountCollection = $this->cartCountCollectionFactory->create();
+        $productCollection = $this->productCollectionFactory->create();
+        $productCollection->addFieldToFilter('agl_product', true)
+            ->setPageSize(10);
 
         $items = [];
 
-        foreach ($cartCountCollection as $cartCountItem) {
-            $sku = $cartCountItem->getSku();
-            $count = $cartCountItem->getCartCount();
-
-            /** @var \AGL\SalesFunnel\Api\Data\AglProductInterface $aglProduct */
-            $aglProduct = $this->aglProductFactory->create();
-            $aglProduct->setSku($sku);
-            $aglProduct->setCartCount($count);
-            $aglProduct->setCartCountFormatted($count . ' AGL customers love this product!');
-
+        foreach ($productCollection as $product) {
+            $sku = $product->getSku();
+            $aglProduct = $this->getBySku($sku);
             $items[] = $aglProduct;
         }
 
@@ -99,7 +103,6 @@ class AglProductRepository implements AglProductRepositoryInterface
      */
     public function getBySku($sku)
     {
-
         $cartCountCollection = $this->cartCountCollectionFactory->create();
         $cartCountCollection->addFieldToFilter('sku', $sku)
             ->setPageSize(1);
